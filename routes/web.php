@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfessoreController;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -25,14 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-/////////////////////////////////////////
 
+//ALUNOS
 Route::resource('alunos', AlunoController::class);
-/*
-Route::get('aluno',[\App\Http\Controllers\AlunoController::class, 'index'])->name('aluno.index');
-Route::get('aluno/create',[\App\Http\Controllers\AlunoController::class, 'create'])->name('aluno.create');
-Route::post('aluno',[\App\Http\Controllers\AlunoController::class, 'store'])->name('aluno.store');
-Route::get('aluno/{aluno}',[\App\Http\Controllers\AlunoController::class, 'show'])->name('aluno.show');
-*/
+//PROFESSORES
+Route::resource('professores',ProfessoreController::class);
 
 require __DIR__.'/auth.php';
