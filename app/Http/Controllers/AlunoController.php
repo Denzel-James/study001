@@ -42,8 +42,8 @@ class AlunoController extends Controller
             'genero' => 'required|string|max:20',
             'data_nascimento' => 'required|date',
             'morada' => 'required|string|max:255',
-            'telefone' => 'required|integer|max:999999999|min:999999999',
-            'telefoneAlt' => 'required|integer|max:999999999|min:999999999',
+            'telefone' => 'required|integer|max:999999999|min:900000000',
+            'telefoneAlt' => 'required|integer|max:999999999|min:900000000',
         ]));
         if ($aluno) {
             return response()->json($aluno);
@@ -68,7 +68,9 @@ class AlunoController extends Controller
     public function edit(Aluno $aluno)
     {
         //
-
+        //return($aluno);
+        //$aluno = Aluno::all();
+        return Inertia::render('Aluno/edit',compact('aluno'));
     }
 
     /**
@@ -77,6 +79,12 @@ class AlunoController extends Controller
     public function update(Request $request, Aluno $aluno)
     {
         //
+        $alterou = $aluno->update($request->all());
+        if($alterou){
+            return response()->json('Editado com sucesso');
+        }else{
+            return response()->json(['message'=>'Erro ao editar aluno'],500);
+        }
     }
 
     /**
@@ -85,5 +93,12 @@ class AlunoController extends Controller
     public function destroy(Aluno $aluno)
     {
         //
+        $deletou = $aluno->delete();
+        if($deletou){
+            return response()->json('Eliminado');
+        }else{
+            return response()->json(['message'=>'Erro ao eliminar'],500);
+        }
     }
+
 }

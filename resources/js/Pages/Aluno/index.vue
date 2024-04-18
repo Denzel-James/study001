@@ -60,12 +60,17 @@
         },
         methods:{
             editar(id){
-                //alert(id);
                 this.$inertia.visit('/alunos/'+id+'/edit')
             },
             eliminar(id){
                 if(confirm('Deseja Eliminar')){
-                    alert('eliminado');
+                    axios.delete('/alunos/'+ id)
+                        .then(response => {
+                            alert('Eliminado com sucesso');
+                            this.$inertia.visit('/alunos')
+                    }).catch(error=>{
+                        console.log(error);
+                    })
                 }else{
                     alert('cancelado');
                 }
